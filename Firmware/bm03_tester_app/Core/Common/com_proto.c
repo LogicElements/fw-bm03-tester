@@ -371,13 +371,14 @@ static Status_t ComProto_ReadReg(uint8_t *data, uint8_t *txResp)
 /* Arrived firmware upgrade data chunk */
 static Status_t ComProto_FwUpgrade(uint8_t *data, uint8_t *txResp)
 {
-  static uint32_t dev_id, bf_base, bf_length;
+  static uint32_t dev_id;
+  static uint32_t bf_base = (uint32_t)CONF_C_APP_BUFFER_OFFSET;
 
   Status_t ret = STATUS_OK;
   uint16_t respIdx;
   uint16_t dataLength;
   uint32_t offset;
-  uint32_t retCode;
+  uint32_t retCode = 0;
   uint32_t version;
   uint32_t date;
   uint32_t shift = 0;
@@ -389,52 +390,51 @@ static Status_t ComProto_FwUpgrade(uint8_t *data, uint8_t *txResp)
   dataLength -= 8;
   offset = *(uint32_t *)(data + 4);
 
-  // zero offset within sector means we need to erase sector, find the device ID
-  if (offset % 0x20000 == 0)
+  // find the device ID
+  if (offset == 0)
   {
     dev_id = *(uint32_t *)(data + 512 + 40);
+    if (dev_id != CONF_TARGET_DEVICE) retCode = 1;  // wrong device ID
+  }
 
-    if (dev_id == CONF_TARGET_DEVICE)
+  if (retCode == 0)
+  {
+    // zero offset within sector means we need to erase sector
+    if (offset % FLASH_PAGE_SIZE == 0)
     {
-      bf_base = (uint32_t)CONF_C_APP_BUFFER_OFFSET;
+      System_FlashErase(bf_base + offset, bf_base + offset);
+    }
+
+    if (dataLength == 0)
+    {
+      // verify and schedule restart only for TESTER fw image
+      if (dev_id == CONF_TARGET_DEVICE)
+      {
+        // the very last packet, verify image
+        ret = System_VerifyImage((uint32_t*)bf_base, dev_id);
+        retCode = ret;
+        if (ret == STATUS_OK) Control_ScheduleRestart();
+      } else {
+        retCode = STATUS_OK;
+      }
+    }
+    else if (dataLength % 4 != 0)
+    {
+      // wrong length of data
+      retCode = 2;
     }
     else
-      ret = STATUS_ERROR;
-
-    System_FlashErase(bf_base + offset, bf_base + offset);
-    bf_length = dataLength;
-  }
-
-  if (dataLength == 0)
-  {
-    // verify and schedule restart only for TESTER fw image
-    if (dev_id == CONF_TARGET_DEVICE)
     {
-      // the very last packet, verify image
-      ret = System_VerifyImage((uint32_t*)bf_base, dev_id);
-      retCode = ret;
-      if (ret == STATUS_OK) Control_ScheduleRestart();
-    } else {
-      retCode = STATUS_OK;
-    }
-  }
-  else if (dataLength % 4 != 0)
-  {
-    // wrong length of data
-    retCode = 2;
-  }
-  else
-  {
-    // check uint32 alignment
-    if (((uint32_t)data % 4) != 0)
-    {
-      shift = ((uint32_t)data % 4);
-      memcpy(data + 8 - shift, data + 8, dataLength);
-    }
+      // check uint32 alignment
+      if (((uint32_t)data % 4) != 0)
+      {
+        shift = ((uint32_t)data % 4);
+        memcpy(data + 8 - shift, data + 8, dataLength);
+      }
 
-    // write data to flash
-    retCode = System_FlashProgram((uint32_t)bf_base + offset, data + 8 - shift, dataLength);
-    bf_length += dataLength;
+      // write data to flash
+      retCode = System_FlashProgram((uint32_t)bf_base + offset, data + 8 - shift, dataLength);
+    }
   }
 
   respIdx = 12;

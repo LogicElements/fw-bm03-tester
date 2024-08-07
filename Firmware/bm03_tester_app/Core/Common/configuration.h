@@ -37,7 +37,7 @@
 /**
  * Target device ID
  */
-#define CONF_TARGET_DEVICE            2182   //< Set proper target device ID
+#define CONF_TARGET_DEVICE            8103   //< Set proper target device ID
 
 /* Macros --------------------------------------------------------------------*/
 

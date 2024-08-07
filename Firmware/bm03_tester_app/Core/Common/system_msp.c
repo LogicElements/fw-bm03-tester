@@ -117,6 +117,19 @@ uint32_t System_GetTick(void)
 }
 
 
+/* Clear CRC computation */
+void System_CrcClear(void)
+{
+  __HAL_CRC_DR_RESET(&hcrc);
+}
+
+
+/* Calculate CRC computation */
+uint32_t System_CrcAccumulate(uint32_t *data, uint32_t length)
+{
+  return HAL_CRC_Accumulate(&hcrc, data, length);
+}
+
 /* Get random number using RNG */
 uint32_t System_GetRandomNumber(void)
 {
@@ -262,10 +275,10 @@ Status_t System_VerifyImage(uint32_t *address, uint32_t dev_alt)
   if (ret == STATUS_OK)
   {
     // calculate CRC. CRC skips the Firmware information field, uses all 0xFF
-//    System_CrcClear();
-//    System_CrcAccumulate(address, (uint32_t)CONF_FW_INFO_OFFSET / 4);
-//    System_CrcAccumulate((uint32_t*)CONF_FIRMWARE_INFO_DEFAULT, 8);
-//    calcChecksum = System_CrcAccumulate(address + (uint32_t)CONF_FW_INFO_OFFSET / 4 + 8, (size - (uint32_t)CONF_FW_INFO_OFFSET - 32) / 4);
+    System_CrcClear();
+    System_CrcAccumulate(address, (uint32_t)CONF_FW_INFO_OFFSET / 4);
+    System_CrcAccumulate((uint32_t*)CONF_FIRMWARE_INFO_DEFAULT, 8);
+    calcChecksum = System_CrcAccumulate(address + (uint32_t)CONF_FW_INFO_OFFSET / 4 + 8, (size - (uint32_t)CONF_FW_INFO_OFFSET - 32) / 4);
 
     // if CRC is different
     if (calcChecksum != checksum)

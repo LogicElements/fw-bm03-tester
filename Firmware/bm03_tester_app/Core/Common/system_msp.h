@@ -14,7 +14,7 @@
 #define SYSTEM_MSP_H_
 
 #ifdef __cplusplus
-extern "C" {
+"C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -34,17 +34,17 @@ typedef  void (*System_Callback_t)(void);
 /**
  * @brief Remap interrupt vectors to the application area
  */
-extern void System_RemapVector(void);
+void System_RemapVector(void);
 
 /**
  * @brief Perform a systen RESET
  */
-extern void System_Reset(void);
+void System_Reset(void);
 
 /**
  * @brief Refresh the system watchdog
  */
-extern Status_t System_ReloadWdg(void);
+Status_t System_ReloadWdg(void);
 
 /**
  * @brief Start application at specified address
@@ -56,35 +56,48 @@ extern Status_t System_ReloadWdg(void);
  *
  * @param address Beginning address of the application to run
  */
-extern void System_StartApplication(uint32_t address);
+void System_StartApplication(uint32_t address);
 
 /**
  * @brief System delay based on system tick
  * @param miliseconds Delay in msec
  */
-extern void System_Delay(uint32_t miliseconds);
+void System_Delay(uint32_t miliseconds);
 
 /**
  * @brief Get the current system tick count
  * @return System tick count
  */
-extern uint32_t System_GetTick(void);
+uint32_t System_GetTick(void);
 
 /**
  * @brief Get random number using RNG
  * @return Random number
  */
-extern uint32_t System_GetRandomNumber(void);
+uint32_t System_GetRandomNumber(void);
+
+/**
+ * @brief Clear CRC computation
+ */
+void System_CrcClear(void);
+
+/**
+ * @brief Calculate CRC computation
+ * @param data Pointer to data to calculate
+ * @param length Length of the data
+ * @return
+ */
+uint32_t System_CrcAccumulate(uint32_t *data, uint32_t length);
 
 /**
  * @brief Unlock Flash interface for programming
  */
-extern void System_FlashEnable(void);
+void System_FlashEnable(void);
 
 /**
  * @brief Lock Flash interface for programming
  */
-extern void System_FlashDisable(void);
+void System_FlashDisable(void);
 
 /**
  * @brief Program double 32-bit word to Flash
@@ -92,7 +105,7 @@ extern void System_FlashDisable(void);
  * @param data Data to write
  * @return HAL status
  */
-extern int16_t System_FlashProgramDoubleWord(uint32_t address, uint64_t data);
+int16_t System_FlashProgramDoubleWord(uint32_t address, uint64_t data);
 
 /**
  * @brief Program a bunch of data into Flash memory
@@ -101,7 +114,7 @@ extern int16_t System_FlashProgramDoubleWord(uint32_t address, uint64_t data);
  * @param dataLength Length of the data to write
  * @return Status
  */
-extern int16_t System_FlashProgram(uint32_t address, uint8_t *data, uint32_t dataLength);
+int16_t System_FlashProgram(uint32_t address, uint8_t *data, uint32_t dataLength);
 
 /**
  * @brief Erase the selected Flash area
@@ -109,7 +122,7 @@ extern int16_t System_FlashProgram(uint32_t address, uint8_t *data, uint32_t dat
  * @param[in] endAddr End address of the memory to erase
  * @return HAL status
  */
-extern int16_t System_FlashErase(uint32_t startAddr, uint32_t endAddr);
+int16_t System_FlashErase(uint32_t startAddr, uint32_t endAddr);
 
 /**
  * @brief Verify FW image
@@ -117,7 +130,7 @@ extern int16_t System_FlashErase(uint32_t startAddr, uint32_t endAddr);
  * @param[in] alternative Device ID or 0 if not used
  * @return Result (OK - image OK, ERROR - image not OK)
  */
-extern Status_t System_VerifyImage(uint32_t *address, uint32_t dev_alt);
+Status_t System_VerifyImage(uint32_t *address, uint32_t dev_alt);
 
 /**
  * @brief Check if the flash area is empty
@@ -125,7 +138,7 @@ extern Status_t System_VerifyImage(uint32_t *address, uint32_t dev_alt);
  * @param size Size of the flash to check
  * @return Result (OK - empty, ERROR - not empty)
  */
-extern Status_t System_IsFlashNotEmpty(uint32_t *address, uint32_t size);
+Status_t System_IsFlashNotEmpty(uint32_t *address, uint32_t size);
 
 /* ---------------------------------------------------------------------------*/
 
