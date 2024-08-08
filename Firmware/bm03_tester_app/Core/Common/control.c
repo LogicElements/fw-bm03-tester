@@ -139,6 +139,12 @@ Status_t Control_Handle(void)
   {
     cntrl.prevTick += 1000;
     conf.sys.uptime += 1;
+
+    HAL_GPIO_WritePin(LED_0_GPIO_Port, LED_0_Pin, GPIO_PIN_SET);
+  }
+  else
+  {
+    HAL_GPIO_WritePin(LED_0_GPIO_Port, LED_0_Pin, GPIO_PIN_RESET);
   }
 
   /* Store previous command */

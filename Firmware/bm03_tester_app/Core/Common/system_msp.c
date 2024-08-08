@@ -17,9 +17,17 @@
 #include "configuration.h"
 
 /* Private typedef -----------------------------------------------------------*/
+//! System microsecond precise timer
+#define SYSTEM_TIMER                             TIM6
+//! Software microsecond timer count
+#define SYSTEM_TIMERS_NB                            5
+
 /* Private defines -----------------------------------------------------------*/
 /* Private macros ------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
+
+static uint16_t timers[SYSTEM_TIMERS_NB];
+
 /* Private function prototypes -----------------------------------------------*/
 
 /**
@@ -42,7 +50,6 @@ __weak void System_EnterStopMode(void);
 __weak void System_ExitStopMode(void);
 
 
-int16_t System_GetZoneFromTimestamp(uint32_t timestamp);
 
 /* Public functions ----------------------------------------------------------*/
 
@@ -107,6 +114,47 @@ void System_StartApplication(uint32_t address)
 void System_Delay(uint32_t milliseconds)
 {
   HAL_Delay(milliseconds);
+}
+
+
+
+/* Microsecond system delay based on the system timer. */
+void System_DelayUs(uint16_t us)
+{
+  uint16_t timeEnd;
+
+  timeEnd = SYSTEM_TIMER->CNT + us;
+  // wait till countFlag is set
+  while (((uint16_t)((uint16_t)SYSTEM_TIMER->CNT - timeEnd) >= 0x7fff))
+  {
+    __NOP();
+  }
+  return;
+}
+
+
+
+/* Start timer (stopwatch). There are multiple slots to use. */
+void System_TimerStart(uint32_t number)
+{
+  if (number < SYSTEM_TIMERS_NB)
+  {
+    timers[number] = SYSTEM_TIMER->CNT;
+  }
+}
+
+
+/* Get value of microsecond timer (stopwatch) */
+uint16_t System_GetTimer(uint32_t number)
+{
+  uint16_t ret = 0xFFFF;
+
+  if (number < SYSTEM_TIMERS_NB)
+  {
+    ret = (uint16_t)SYSTEM_TIMER->CNT - timers[number];
+  }
+
+  return(ret);
 }
 
 

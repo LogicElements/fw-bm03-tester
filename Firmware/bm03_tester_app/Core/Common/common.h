@@ -61,19 +61,19 @@
  */
 #define PRIO_IRQ_SYSTICK            1      ///< Systick interrupt
 #define PRIO_IRQ_USB                8
-#define PRIO_IRQ_MODBUS             7      ///< Modbus uart and timeout
+
 
 /**
  * Timers assignment
  *
  * TIM1 -
  * TIM2 -
- * TIM3 - Modbus timeout
+ * TIM3 -
  * TIM4 -
  * TIM5 -
  * TIM6 -
  * TIM7 -
- * TIM8 - Opentherm IO
+ * TIM8 -
  * TIM14-
  * TIM15-
  * TIM16-
@@ -154,6 +154,7 @@
 #define GET_BYTE_1(a)       ( (uint8_t) (((a) >> 8) & 0xff))
 #define GET_BYTE_2(a)       ( (uint8_t) (((a) >> 16) & 0xff))
 #define GET_BYTE_3(a)       ( (uint8_t) (((a) >> 24) & 0xff))
+
 
 /**
  * Disable Event

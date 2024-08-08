@@ -65,6 +65,27 @@ void System_StartApplication(uint32_t address);
 void System_Delay(uint32_t miliseconds);
 
 /**
+* Microsecond delay, taken from SA FW
+* @note Don't use intervals below 5 us when the USB interface is used! Probably the USB causes approximate 2 us interval elongation sometimes.
+* @param us The number of microseconds to wait
+*/
+extern void System_DelayUs(uint16_t us);
+
+/**
+ * @brief Start timer (stopwatch). There are multiple slots to use
+ * @param number Index of slot to use
+ */
+extern void System_TimerStart(uint32_t number);
+
+/**
+ * @brief Get value of microsecond timer (stopwatch)
+ * @param number Number of slot
+ * @return Value of time elapsed from start
+ */
+extern uint16_t System_GetTimer(uint32_t number);
+
+
+/**
  * @brief Get the current system tick count
  * @return System tick count
  */

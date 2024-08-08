@@ -56,6 +56,9 @@ void MX_TIM6_Init(void)
   }
   /* USER CODE BEGIN TIM6_Init 2 */
 
+  /* Start Timer free running */
+  HAL_TIM_Base_Start(&htim6);
+
   /* USER CODE END TIM6_Init 2 */
 
 }
