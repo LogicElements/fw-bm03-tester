@@ -57,6 +57,18 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define MUX_OE_Pin GPIO_PIN_5
+#define MUX_OE_GPIO_Port GPIOA
+#define MUX_S0_Pin GPIO_PIN_6
+#define MUX_S0_GPIO_Port GPIOA
+#define MUX_S1_Pin GPIO_PIN_7
+#define MUX_S1_GPIO_Port GPIOA
+#define MUX_S2_Pin GPIO_PIN_0
+#define MUX_S2_GPIO_Port GPIOB
+#define MUX_PU_Pin GPIO_PIN_1
+#define MUX_PU_GPIO_Port GPIOB
+#define MUX_A_Pin GPIO_PIN_8
+#define MUX_A_GPIO_Port GPIOA
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

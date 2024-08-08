@@ -20,6 +20,7 @@
 #include "main.h"
 #include "crc.h"
 #include "iwdg.h"
+#include "tim.h"
 #include "usb_device.h"
 #include "gpio.h"
 
@@ -101,6 +102,7 @@ int main(void)
   MX_CRC_Init();
   MX_USB_DEVICE_Init();
   MX_IWDG_Init();
+  MX_TIM6_Init();
   /* USER CODE BEGIN 2 */
   Config_Init();
   FlashApp_Init();
