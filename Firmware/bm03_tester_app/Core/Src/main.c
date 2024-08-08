@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "crc.h"
+#include "dac.h"
 #include "iwdg.h"
 #include "tim.h"
 #include "usb_device.h"
@@ -108,6 +109,7 @@ int main(void)
   MX_USB_DEVICE_Init();
   MX_IWDG_Init();
   MX_TIM6_Init();
+  MX_DAC1_Init();
   /* USER CODE BEGIN 2 */
 
   /* Initialize all modules */
@@ -146,6 +148,14 @@ int main(void)
       Control_Handle();
 //      Mux_Handle();
 
+      if (tmr_slow % 2000 == 0)
+      {
+        DAC1->DHR12R1 = (1<<11) - 50;
+      }
+      if (tmr_slow % 2000 == 1000)
+      {
+        DAC1->DHR12R1 = (1<<11) - 50;
+      }
 
     }
   }
