@@ -96,8 +96,10 @@ Status_t Mux_Set(uint8_t select, uint8_t output_enable, uint8_t pullup)
   Status_t ret = STATUS_OK;
 
   mux.select = select;
-  mux.output_enable = output_enable;
+  mux.output_enable = (output_enable) ? (0) : (1);
   mux.pullup = pullup;
+
+  Mux_Handle();
 
   return ret;
 }

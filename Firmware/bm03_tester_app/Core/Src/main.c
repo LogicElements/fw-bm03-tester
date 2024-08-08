@@ -33,6 +33,8 @@
 #include "usbd_cdc_if.h"
 #include "control.h"
 #include "mux.h"
+#include "at21cs01.h"
+#include "pads.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -74,6 +76,8 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
   uint32_t tmr_slow = 0;
+  uint8_t pads = 0;
+  volatile uint16_t status;
 
 
   RCC->CFGR = 0x00000000U;  // workaround - disable PLL otherwise clock config returns error
@@ -111,10 +115,14 @@ int main(void)
   FlashApp_Init();
   Control_Init();
   Mux_Init();
+  Pads_Init();
 
   /* Set initial function */
   System_ReloadWdg();
-  Mux_Set(0, 1, 1);
+  pads = 0;
+  status = Pads_Discovery(&pads);
+
+  HAL_GPIO_WritePin(LED_1_GPIO_Port, LED_1_Pin, pads != 8);
 
   /* USER CODE END 2 */
 
@@ -136,12 +144,9 @@ int main(void)
       System_ReloadWdg();
       FlashApp_Handle();
       Control_Handle();
-      Mux_Handle();
+//      Mux_Handle();
 
 
-//      HAL_GPIO_WritePin(LED_1_GPIO_Port, LED_1_Pin, GPIO_PIN_SET);
-//      System_DelayUs(10000);
-//      HAL_GPIO_WritePin(LED_1_GPIO_Port, LED_1_Pin, GPIO_PIN_RESET);
     }
   }
   /* USER CODE END 3 */
