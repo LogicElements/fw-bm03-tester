@@ -11,6 +11,7 @@
 #include "mux.h"
 #include "at21cs01.h"
 #include "system_msp.h"
+#include "configuration.h"
 
 /* Private defines -----------------------------------------------------------*/
 /* Private macros  -----------------------------------------------------------*/
@@ -47,12 +48,29 @@ Status_t Pads_Init(void)
   return ret;
 }
 
+
+Status_t Pads_Handle(void)
+{
+  Status_t ret = STATUS_OK;
+
+  if (conf.bm.pad_mode == 1)
+  {
+    conf.bm.pad_mode = 0;
+    conf.bm.pads = 0;
+    ret = Pads_Discovery(&conf.bm.pads);
+  }
+
+  return ret;
+}
+
 Status_t Pads_Discovery(uint8_t* number)
 {
   Status_t ret = STATUS_OK;
   uint16_t status;
   uint32_t serial;
   uint32_t index;
+
+  System_ReloadWdg();
 
   /* For each channel */
   for (int i = 0; i < PADS_NUMBER; i++)

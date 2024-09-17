@@ -76,6 +76,11 @@
 #define CONF_CALIB_RESERVED        0x04002151u  ///< Reserved
 #define CONF_BM_MUX                0x05000150u  ///< Multiplexer select
 #define CONF_BM_MUX_DEFAULT        0x05001170u  ///< Default multiplexer
+#define CONF_BM_PADS               0x05002150u  ///< Number of pads
+#define CONF_BM_PAD_MODE           0x05003150u  ///< Pad mode
+#define CONF_BM_SIGNAL_PERIOD      0x05004151u  ///< Signal period
+#define CONF_BM_SIGNAL_BASE        0x05006151u  ///< Signal DC value
+#define CONF_BM_SIGNAL_AMPLITUDE   0x05008151u  ///< Signal AC amplitude
 #define CONF_DBG_WRITES_CONF       0x06000112u  ///< Configuration writes
 
 
@@ -115,7 +120,7 @@
 #define CONF_REG_FLASH_LENGTH      (13)
 #define CONF_REG_LOCAL_LENGTH      (0)
 
-#define CONF_DIM_CONDITION ((sizeof(conf_reg_sys_t) != 24) || (sizeof(conf_reg_fact_t) != 16) || (sizeof(conf_reg_firm_t) != 16) || (sizeof(conf_reg_calib_t) != 4) || (sizeof(conf_reg_bm_t) != 4) || (sizeof(conf_reg_dbg_t) != 4) || 0)
+#define CONF_DIM_CONDITION ((sizeof(conf_reg_sys_t) != 24) || (sizeof(conf_reg_fact_t) != 16) || (sizeof(conf_reg_firm_t) != 16) || (sizeof(conf_reg_calib_t) != 4) || (sizeof(conf_reg_bm_t) != 12) || (sizeof(conf_reg_dbg_t) != 4) || 0)
 
 
 /** @} */
@@ -170,6 +175,11 @@ typedef struct __packed __aligned(4)
 {
   uint8_t mux;
   uint8_t mux_default;
+  uint8_t pads;
+  uint8_t pad_mode;
+  uint16_t signal_period;
+  uint16_t signal_base;
+  uint16_t signal_amplitude;
 }conf_reg_bm_t;
 
 typedef struct __packed __aligned(4)

@@ -35,7 +35,7 @@ conf_reg_t conf;
 uint8_t* const CONF_REG[CONF_REG_BLOCK_NUMBER] = {(uint8_t*)&conf.sys, (uint8_t*)&conf.fact, (uint8_t*)&conf.firm, NULL, (uint8_t*)&conf.calib, (uint8_t*)&conf.bm, (uint8_t*)&conf.dbg, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, };
 
 const uint32_t CONF_REG_LIMIT[CONF_REG_BLOCK_NUMBER] = {
-24, 16, 16, 0, 4, 2, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
+24, 16, 16, 0, 4, 10, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
 
 const uint32_t CONF_REG_FLASH[CONF_REG_FLASH_NUMBER] = {
 CONF_SYS_REGMAP_VERSION, CONF_BM_MUX_DEFAULT, };
@@ -75,6 +75,11 @@ Status_t RegMap_RestoreFactoryValues(void)
   CONF_SHORT(CONF_CALIB_MODE)            = 0;
   CONF_BYTE(CONF_BM_MUX)                 = 0;
   CONF_BYTE(CONF_BM_MUX_DEFAULT)         = 0;
+  CONF_BYTE(CONF_BM_PADS)                = 0;
+  CONF_BYTE(CONF_BM_PAD_MODE)            = 1;
+  CONF_SHORT(CONF_BM_SIGNAL_PERIOD)      = 2000;
+  CONF_SHORT(CONF_BM_SIGNAL_BASE)        = 1750;
+  CONF_SHORT(CONF_BM_SIGNAL_AMPLITUDE)   = 50;
 
 
   return ret;

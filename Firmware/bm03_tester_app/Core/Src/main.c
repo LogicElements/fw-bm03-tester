@@ -36,6 +36,7 @@
 #include "mux.h"
 #include "at21cs01.h"
 #include "pads.h"
+#include "signal.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -77,9 +78,6 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
   uint32_t tmr_slow = 0;
-  uint8_t pads = 0;
-  volatile uint16_t status;
-
 
   RCC->CFGR = 0x00000000U;  // workaround - disable PLL otherwise clock config returns error
   System_RemapVector();
@@ -118,13 +116,11 @@ int main(void)
   Control_Init();
   Mux_Init();
   Pads_Init();
+  Signal_Init();
 
   /* Set initial function */
   System_ReloadWdg();
-  pads = 0;
-  status = Pads_Discovery(&pads);
 
-  HAL_GPIO_WritePin(LED_1_GPIO_Port, LED_1_Pin, pads != 8);
 
   /* USER CODE END 2 */
 
@@ -146,17 +142,12 @@ int main(void)
       System_ReloadWdg();
       FlashApp_Handle();
       Control_Handle();
+      Pads_Handle();
+      Signal_Handle();
 //      Mux_Handle();
 
-      if (tmr_slow % 2000 == 0)
-      {
-        DAC1->DHR12R1 = (1<<11) - 50;
-      }
-      if (tmr_slow % 2000 == 1000)
-      {
-        DAC1->DHR12R1 = (1<<11) - 50;
-      }
 
+      HAL_GPIO_WritePin(LED_1_GPIO_Port, LED_1_Pin, conf.bm.pads != 8);
     }
   }
   /* USER CODE END 3 */
