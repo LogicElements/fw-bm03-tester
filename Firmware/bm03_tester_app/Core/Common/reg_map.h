@@ -57,31 +57,52 @@
  *  @{
  */
 
-#define CONF_SYS_UPTIME            0x00000112u  ///< Uptime
-#define CONF_SYS_REGMAP_VERSION    0x00004132u  ///< Register map version
-#define CONF_SYS_STATUS            0x00008012u  ///< Status register
-#define CONF_SYS_COMMAND           0x0000C152u  ///< Command
-#define CONF_SYS_TEST              0x00010152u  ///< Testing register
-#define CONF_SYS_IO_INPUT          0x00014111u  ///< Input signals
-#define CONF_SYS_ERROR             0x00016151u  ///< Error code
-#define CONF_FACT_SERIAL_NUMBER    0x01000112u  ///< Serial number
-#define CONF_FACT_DEVICE_ID        0x01004112u  ///< Product number
-#define CONF_FACT_HW_REVISION      0x01008112u  ///< Hardware version
-#define CONF_FACT_BOOT_REVISION    0x0100C112u  ///< Bootloader version
-#define CONF_FIRM_REVISION         0x02000112u  ///< Firmware revision
-#define CONF_FIRM_ASSEMBLY_INFO    0x02004112u  ///< Assembly date
-#define CONF_FIRM_APP_CHECKSUM     0x02008112u  ///< CRC checksum
-#define CONF_FIRM_APP_SIZE         0x0200C112u  ///< Firmware size
-#define CONF_CALIB_MODE            0x04000151u  ///< Calibration mode
-#define CONF_CALIB_RESERVED        0x04002151u  ///< Reserved
-#define CONF_BM_MUX                0x05000150u  ///< Multiplexer select
-#define CONF_BM_MUX_DEFAULT        0x05001170u  ///< Default multiplexer
-#define CONF_BM_PADS               0x05002150u  ///< Number of pads
-#define CONF_BM_PAD_MODE           0x05003150u  ///< Pad mode
-#define CONF_BM_SIGNAL_PERIOD      0x05004151u  ///< Signal period
-#define CONF_BM_SIGNAL_BASE        0x05006151u  ///< Signal DC value
-#define CONF_BM_SIGNAL_AMPLITUDE   0x05008151u  ///< Signal AC amplitude
-#define CONF_DBG_WRITES_CONF       0x06000112u  ///< Configuration writes
+#define CONF_SYS_UPTIME                  0x00000112u  ///< Uptime
+#define CONF_SYS_REGMAP_VERSION          0x00004132u  ///< Register map version
+#define CONF_SYS_STATUS                  0x00008012u  ///< Status register
+#define CONF_SYS_COMMAND                 0x0000C152u  ///< Command
+#define CONF_SYS_TEST                    0x00010152u  ///< Testing register
+#define CONF_SYS_IO_INPUT                0x00014111u  ///< Input signals
+#define CONF_SYS_ERROR                   0x00016151u  ///< Error code
+#define CONF_FACT_SERIAL_NUMBER          0x01000112u  ///< Serial number
+#define CONF_FACT_DEVICE_ID              0x01004112u  ///< Product number
+#define CONF_FACT_HW_REVISION            0x01008112u  ///< Hardware version
+#define CONF_FACT_BOOT_REVISION          0x0100C112u  ///< Bootloader version
+#define CONF_FIRM_REVISION               0x02000112u  ///< Firmware revision
+#define CONF_FIRM_ASSEMBLY_INFO          0x02004112u  ///< Assembly date
+#define CONF_FIRM_APP_CHECKSUM           0x02008112u  ///< CRC checksum
+#define CONF_FIRM_APP_SIZE               0x0200C112u  ///< Firmware size
+#define CONF_CALIB_MODE                  0x04000151u  ///< Calibration mode
+#define CONF_CALIB_RESERVED              0x04002151u  ///< Reserved
+#define CONF_BM_MUX                      0x05000150u  ///< Multiplexer select
+#define CONF_BM_MUX_DEFAULT              0x05001170u  ///< Default multiplexer
+#define CONF_BM_PADS                     0x05002150u  ///< Number of pads
+#define CONF_BM_PAD_MODE                 0x05003150u  ///< Pad mode
+#define CONF_BM_SIGNAL_PERIOD            0x05004151u  ///< Signal period
+#define CONF_BM_SIGNAL_BASE              0x05006151u  ///< Signal DC value
+#define CONF_BM_SIGNAL_AMPLITUDE         0x05008151u  ///< Signal AC amplitude
+#define CONF_DBG_WRITES_CONF             0x06000112u  ///< Configuration writes
+#define CONF_PAD_COMMAND                 0x07000550u  ///< Command for selected PAD memory
+#define CONF_PAD_SELECT                  0x07001150u  ///< Multiplexer select
+#define CONF_PAD_RESERVED                0x07002151u  ///< reserved
+#define CONF_PAD_SERIAL_NUMBER           0x07004152u  ///< Serial number of PAD
+#define CONF_PAD_LAST_CU_SN_WRITE_INDEX  0x07008152u  ///< Index of last written CU SN
+#define CONF_PAD_CU_SN_INDEX0            0x0700C152u  ///< Control unit serial number 0
+#define CONF_PAD_CU_SN_INDEX1            0x07010152u  ///< Control unit serial number 1
+#define CONF_PAD_CU_SN_INDEX2            0x07014152u  ///< Control unit serial number 2
+#define CONF_PAD_CU_SN_INDEX3            0x07018152u  ///< Control unit serial number 3
+#define CONF_PAD_CU_SN_INDEX4            0x0701C152u  ///< Control unit serial number 4
+#define CONF_PAD_CU_SN_INDEX5            0x07020152u  ///< Control unit serial number 5
+#define CONF_PAD_CU_SN_INDEX6            0x07024152u  ///< Control unit serial number 6
+#define CONF_PAD_CU_SN_INDEX7            0x07028152u  ///< Control unit serial number 7
+#define CONF_PAD_CU_SN_INDEX8            0x0702C152u  ///< Control unit serial number 8
+#define CONF_PAD_CU_SN_INDEX9            0x07030152u  ///< Control unit serial number 9
+#define CONF_PAD_TIU_STANDBY             0x07034152u  ///< Time-in-use in standby mode
+#define CONF_PAD_TIU_ACTIVE              0x07038152u  ///< Time-in-use in active mode
+#define CONF_PAD_KID_PLACEMENT_NOTIF_CNT 0x0703C152u  ///< Number of kid placement notifications
+#define CONF_PAD_ACTIVE_MODE_CNT         0x07040152u  ///< Number of active mode activation
+#define CONF_PAD_CONN_CNT                0x07044152u  ///< Number of pad connections
+#define CONF_PAD_ALARM_CNT               0x07048152u  ///< Number of alarms
 
 
 /** @} */
@@ -120,7 +141,7 @@
 #define CONF_REG_FLASH_LENGTH      (13)
 #define CONF_REG_LOCAL_LENGTH      (0)
 
-#define CONF_DIM_CONDITION ((sizeof(conf_reg_sys_t) != 24) || (sizeof(conf_reg_fact_t) != 16) || (sizeof(conf_reg_firm_t) != 16) || (sizeof(conf_reg_calib_t) != 4) || (sizeof(conf_reg_bm_t) != 12) || (sizeof(conf_reg_dbg_t) != 4) || 0)
+#define CONF_DIM_CONDITION ((sizeof(conf_reg_sys_t) != 24) || (sizeof(conf_reg_fact_t) != 16) || (sizeof(conf_reg_firm_t) != 16) || (sizeof(conf_reg_calib_t) != 4) || (sizeof(conf_reg_bm_t) != 12) || (sizeof(conf_reg_dbg_t) != 4) || (sizeof(conf_reg_pad_t) != 76) || 0)
 
 
 /** @} */
@@ -137,6 +158,13 @@
  *  @{
  */
 
+
+typedef enum
+{
+  PAD_COM_IDLE = 0,
+  PAD_COM_READ = 1,
+  PAD_COM_WRITE = 2,
+}pad_command_t ;
 
 typedef struct __packed __aligned(4)
 {
@@ -187,6 +215,31 @@ typedef struct __packed __aligned(4)
   uint32_t writes_conf;
 }conf_reg_dbg_t;
 
+typedef struct __packed __aligned(4)
+{
+  pad_command_t command;
+  uint8_t select;
+  uint16_t reserved;
+  uint32_t serial_number;
+  uint32_t last_cu_sn_write_index;
+  uint32_t cu_sn_index0;
+  uint32_t cu_sn_index1;
+  uint32_t cu_sn_index2;
+  uint32_t cu_sn_index3;
+  uint32_t cu_sn_index4;
+  uint32_t cu_sn_index5;
+  uint32_t cu_sn_index6;
+  uint32_t cu_sn_index7;
+  uint32_t cu_sn_index8;
+  uint32_t cu_sn_index9;
+  uint32_t tiu_standby;
+  uint32_t tiu_active;
+  uint32_t kid_placement_notif_cnt;
+  uint32_t active_mode_cnt;
+  uint32_t conn_cnt;
+  uint32_t alarm_cnt;
+}conf_reg_pad_t;
+
 
 typedef struct 
 {
@@ -197,7 +250,7 @@ typedef struct
   conf_reg_calib_t calib;
   conf_reg_bm_t bm;
   conf_reg_dbg_t dbg;
-  uint32_t res8;
+  conf_reg_pad_t pad;
   uint32_t res9;
   uint32_t res10;
   uint32_t res11;

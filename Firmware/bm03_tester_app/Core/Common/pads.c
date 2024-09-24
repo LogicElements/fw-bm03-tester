@@ -142,4 +142,56 @@ Status_t Pads_ResetFactory(uint32_t serial)
 
 /* Private Functions ---------------------------------------------------------*/
 
+
+uint8_t Sys_CalcCRC8(uint8_t* dataPtr, uint32_t dataSize)
+{
+  uint32_t i, j;
+  uint8_t crc = 0;
+  uint8_t polynom = 0x1D;
+
+  for (i = 0; i < dataSize; i++)
+  {
+    crc ^= dataPtr[i];
+    for (j = 0; j < 8; j++)
+    {
+      if (crc & 1)
+        crc ^= polynom;
+      crc >>= 1;
+    }
+  }
+  return crc;
+}
+
+
+void Sys_GetValidMaxValueAndIdxFromBlocks(uint32_t* blockBase, uint8_t blockCnt, uint32_t* maxValueDst, uint32_t* maxValueIdxDst)
+{
+  uint32_t blockValidVals[4];
+  uint8_t blockCrcResults[4];
+  uint32_t maxValidVal = 0;
+  uint32_t maxValueIdx = 0;
+  uint32_t blockValue;
+
+  for(uint8_t i=0; i<blockCnt; i++)
+  {
+    blockValue = (blockBase[i] >> 8) & 0xFFFFFF;
+
+    blockCrcResults[i] = Sys_CalcCRC8((uint8_t*)&blockValue, 3);
+
+    if(blockCrcResults[i] == (blockBase[i] & 0xFF))
+    {
+      blockValidVals[i] = (blockBase[i] >> 8) & 0xFFFFFF;
+
+      if(blockValidVals[i] > maxValidVal)
+      {
+        maxValidVal = blockValidVals[i];
+        maxValueIdx = i;
+      }
+    }
+  }
+
+  *maxValueDst = maxValidVal;
+  *maxValueIdxDst = maxValueIdx;
+}
+
+
 /** @} */
