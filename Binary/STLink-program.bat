@@ -5,7 +5,7 @@ time /t
 
 echo Flashing Bootloader and Application image to STM
 
-set /A DEC_SN=20100000+%1%
+set /A DEC_SN=24100000+%1%
 setlocal EnableDelayedExpansion
 call :ConvertDecToHex %DEC_SN% HEX_SN
 
@@ -13,9 +13,9 @@ call :ConvertDecToHex %DEC_SN% HEX_SN
 
 set PATH=%PATH%;"C:\Program Files (x86)\STMicroelectronics\STM32 ST-LINK Utility\ST-LINK Utility"
 start /b /wait ST-LINK_CLI.exe -c SWD -ME
-start /b /wait ST-LINK_CLI.exe -c SWD -P PirMagT-BTL-20210216-10004.bin 0x8000000 -V "after_programming"
-start /b /wait ST-LINK_CLI.exe -c SWD -P PirMagT-20220512-17.bin -V "after_programming"
-start /b /wait ST-LINK_CLI.exe -c SWD -w32 0x08000200 %HEX_SN% -HardRst
+start /b /wait ST-LINK_CLI.exe -c SWD -P BM03TESTER-BTL.bin 0x8000000 -V "after_programming"
+start /b /wait ST-LINK_CLI.exe -c SWD -P BM03TESTER-APP-20241029-1.bin 0x800E000 -V "after_programming"
+start /b /wait ST-LINK_CLI.exe -c SWD -w32 0x08008000 %HEX_SN% -HardRst
 
 Exit /B
 
