@@ -37,6 +37,7 @@
 #include "at21cs01.h"
 #include "pads.h"
 #include "signal.h"
+#include "switch.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -78,6 +79,7 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
   uint32_t tmr_slow = 0;
+  uint32_t tmr_fast = 0;
 
   RCC->CFGR = 0x00000000U;  // workaround - disable PLL otherwise clock config returns error
   System_RemapVector();
@@ -117,11 +119,12 @@ int main(void)
   Mux_Init();
   Pads_Init();
   Signal_Init();
+  Switch_Init();
 
   /* Set initial function */
   System_ReloadWdg();
 
-
+  tmr_fast = HAL_GetTick();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -143,12 +146,23 @@ int main(void)
       FlashApp_Handle();
       Control_Handle();
       Pads_Handle();
-      Signal_Handle();
 //      Mux_Handle();
 
 
       HAL_GPIO_WritePin(LED_1_GPIO_Port, LED_1_Pin, conf.bm.pads != 8);
     }
+
+    // Fast Handle
+    if (TICK_EXPIRED(tmr_fast))
+    {
+      tmr_fast += 5;
+      Signal_Handle();
+
+      Switch_GetAll();
+      Switch_WriteAll();
+
+    }
+
   }
   /* USER CODE END 3 */
 }

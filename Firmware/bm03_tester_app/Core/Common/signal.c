@@ -96,7 +96,7 @@ static Status_t Signal_Restart(void)
 {
   Status_t ret = STATUS_OK;
 
-  sig.tick = HAL_GetTick() + (conf.bm.signal_period >> 1);
+  sig.tick = HAL_GetTick();// + (conf.bm.signal_period >> 1);
   sig.down_n_up = 0;
   sig.value = VOLT_TO_DAC(conf.bm.signal_base);
 

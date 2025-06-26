@@ -73,6 +73,14 @@ void Error_Handler(void);
 #define MUX_PU_GPIO_Port GPIOB
 #define MUX_A_Pin GPIO_PIN_8
 #define MUX_A_GPIO_Port GPIOA
+#define ALARM_0_Pin GPIO_PIN_4
+#define ALARM_0_GPIO_Port GPIOB
+#define ALARM_1_Pin GPIO_PIN_5
+#define ALARM_1_GPIO_Port GPIOB
+#define PWR_0_Pin GPIO_PIN_6
+#define PWR_0_GPIO_Port GPIOB
+#define PWR_1_Pin GPIO_PIN_7
+#define PWR_1_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
