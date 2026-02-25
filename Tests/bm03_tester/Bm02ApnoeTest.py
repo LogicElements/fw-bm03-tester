@@ -21,7 +21,7 @@ regs = RegisterMap(com)
 regs.load('Bm03Tester_registers.json')
 
 
-def iterate(breath=10.0, timeout=600):
+def iterate(breath=10.0, timeout=240):
     period = 60000.0 / breath
 
     # print(f"Start with {b} breaths per minute (breath every {round(period/1000, 2)} s.)")
@@ -40,9 +40,11 @@ def iterate(breath=10.0, timeout=600):
         if regs.read_by_name(BM.BM_ALARM_0) > 1:
             results[0] = (datetime.now() - t_start).total_seconds()
             regs.write_by_name(BM.BM_POWER_0, 0)
+            regs.write_by_name(BM.BM_ALARM_0, 0)
         if regs.read_by_name(BM.BM_ALARM_1) > 1:
             results[1] = (datetime.now() - t_start).total_seconds()
             regs.write_by_name(BM.BM_POWER_1, 0)
+            regs.write_by_name(BM.BM_ALARM_1, 0)
 
         if (datetime.now() - t_start).seconds > timeout:
             run = False
@@ -68,15 +70,15 @@ def iterate(breath=10.0, timeout=600):
 if __name__ == '__main__':
 
     # Setup
-    regs.write_by_name(BM.BM_SIGNAL_BASE, 1500)
+    regs.write_by_name(BM.BM_SIGNAL_BASE, 1250)
     regs.write_by_name(BM.BM_SIGNAL_AMPLITUDE, 0)
     regs.write_by_name(BM.BM_POWER_0, 0)
     regs.write_by_name(BM.BM_POWER_1, 0)
     sleep(3)
 
-    breaths = [x * 0.1 for x in range(31, 101)]
+    breaths = [x * 0.1 for x in range(29, 101)]
 
-    breaths = [2.9, 3]
+    # breaths = [2.9, 3]
 
     csv_res = [['breath', 'period', 'time 1', 'time 2']]
 

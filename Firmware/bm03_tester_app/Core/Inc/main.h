@@ -61,6 +61,10 @@ void Error_Handler(void);
 #define LED_0_GPIO_Port GPIOC
 #define LED_1_Pin GPIO_PIN_15
 #define LED_1_GPIO_Port GPIOC
+#define SYNC_OUT_Pin GPIO_PIN_2
+#define SYNC_OUT_GPIO_Port GPIOA
+#define SYNC_IN_Pin GPIO_PIN_3
+#define SYNC_IN_GPIO_Port GPIOA
 #define MUX_OE_Pin GPIO_PIN_5
 #define MUX_OE_GPIO_Port GPIOA
 #define MUX_S0_Pin GPIO_PIN_6
@@ -81,6 +85,7 @@ void Error_Handler(void);
 #define PWR_0_GPIO_Port GPIOB
 #define PWR_1_Pin GPIO_PIN_7
 #define PWR_1_GPIO_Port GPIOB
+
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
