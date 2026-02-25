@@ -85,6 +85,8 @@
 #define CONF_BM_POWER_1                  0x0500C151u  ///< Enable power on PB7
 #define CONF_BM_ALARM_0                  0x0500E151u  ///< Counter of alarms on in PB4
 #define CONF_BM_ALARM_1                  0x05010151u  ///< Counter of alarms on in PB5
+#define CONF_BM_SYNC_EN                  0x05012151u  ///< Enable synchronization output
+#define CONF_BM_SYNC_OFF                 0x05014151u  ///< Time when it is considered to be out of sync
 #define CONF_DBG_WRITES_CONF             0x06000112u  ///< Configuration writes
 #define CONF_PAD_COMMAND                 0x07000550u  ///< Command for selected PAD memory
 #define CONF_PAD_SELECT                  0x07001150u  ///< Multiplexer select
@@ -145,7 +147,7 @@
 #define CONF_REG_FLASH_LENGTH      (13)
 #define CONF_REG_LOCAL_LENGTH      (0)
 
-#define CONF_DIM_CONDITION ((sizeof(conf_reg_sys_t) != 24) || (sizeof(conf_reg_fact_t) != 16) || (sizeof(conf_reg_firm_t) != 16) || (sizeof(conf_reg_calib_t) != 4) || (sizeof(conf_reg_bm_t) != 20) || (sizeof(conf_reg_dbg_t) != 4) || (sizeof(conf_reg_pad_t) != 76) || 0)
+#define CONF_DIM_CONDITION ((sizeof(conf_reg_sys_t) != 24) || (sizeof(conf_reg_fact_t) != 16) || (sizeof(conf_reg_firm_t) != 16) || (sizeof(conf_reg_calib_t) != 4) || (sizeof(conf_reg_bm_t) != 24) || (sizeof(conf_reg_dbg_t) != 4) || (sizeof(conf_reg_pad_t) != 76) || 0)
 
 
 /** @} */
@@ -216,6 +218,8 @@ typedef struct __packed __aligned(4)
   uint16_t power_1;
   uint16_t alarm_0;
   uint16_t alarm_1;
+  uint16_t sync_en;
+  uint16_t sync_off;
 }conf_reg_bm_t;
 
 typedef struct __packed __aligned(4)

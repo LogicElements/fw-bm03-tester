@@ -35,7 +35,7 @@ conf_reg_t conf;
 uint8_t* const CONF_REG[CONF_REG_BLOCK_NUMBER] = {(uint8_t*)&conf.sys, (uint8_t*)&conf.fact, (uint8_t*)&conf.firm, NULL, (uint8_t*)&conf.calib, (uint8_t*)&conf.bm, (uint8_t*)&conf.dbg, (uint8_t*)&conf.pad, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, };
 
 const uint32_t CONF_REG_LIMIT[CONF_REG_BLOCK_NUMBER] = {
-24, 16, 16, 0, 4, 18, 4, 76, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
+24, 16, 16, 0, 4, 22, 4, 76, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
 
 const uint32_t CONF_REG_FLASH[CONF_REG_FLASH_NUMBER] = {
 CONF_SYS_REGMAP_VERSION, CONF_BM_MUX_DEFAULT, };
@@ -84,6 +84,8 @@ Status_t RegMap_RestoreFactoryValues(void)
   CONF_SHORT(CONF_BM_POWER_1)            = 0;
   CONF_SHORT(CONF_BM_ALARM_0)            = 0;
   CONF_SHORT(CONF_BM_ALARM_1)            = 0;
+  CONF_SHORT(CONF_BM_SYNC_EN)            = 1;
+  CONF_SHORT(CONF_BM_SYNC_OFF)           = 5000;
 
 
   return ret;

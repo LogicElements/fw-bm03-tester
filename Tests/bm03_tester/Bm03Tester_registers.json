@@ -470,6 +470,36 @@
     "ConfigUser": false 
   },
   {
+    "Category":"BM", 
+    "Name":"SYNC_EN", 
+    "Label":"Enable synchronization output", 
+    "Id":83960145, 
+    "VarType":"INT", 
+    "Access":"RW", 
+    "Description":"", 
+    "Value":"1",
+    "NewValue":"1",
+    "Reset":"1",
+    "Units":"", 
+    "IsVisible": true, 
+    "ConfigUser": false 
+  },
+  {
+    "Category":"BM", 
+    "Name":"SYNC_OFF", 
+    "Label":"Time when it is considered to be out of sync", 
+    "Id":83968337, 
+    "VarType":"INT", 
+    "Access":"RW", 
+    "Description":"", 
+    "Value":"5000",
+    "NewValue":"5000",
+    "Reset":"5000",
+    "Units":"", 
+    "IsVisible": true, 
+    "ConfigUser": false 
+  },
+  {
     "Category":"DBG", 
     "Name":"WRITES_CONF", 
     "Label":"Configuration writes", 
